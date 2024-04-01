@@ -2,11 +2,9 @@ package com.ecommerce.onlinebookstore.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -26,22 +24,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         var savedRequest = requestCache.getRequest(request, response);
 
         if (savedRequest == null) {
-            clearAuthenticationAttributes(request);
             return;
         }
 
-        clearAuthenticationAttributes(request);
         String targetUrl = savedRequest.getRedirectUrl();
         redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
-
-    private void clearAuthenticationAttributes(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-
-        if (session == null) {
-            return;
-        }
-
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 }
