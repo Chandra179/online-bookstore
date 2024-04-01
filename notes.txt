@@ -1,0 +1,32 @@
+Guest
+1. browsing books
+2. adding item to cart will be stored in session or local storage if not login
+3. then when user login the cart item wil be added to database
+4. if success: remove the session or localstorage
+
+HomePage
+1. Search bar -> by title, author
+   - /search?q=Steve%Jobs
+   - with pagination, 10-100 per page
+2. Bestsellers books (all genre) [Slider] 10 books
+   - see all >> will be redirected to bestsellers page, with pagination, 10-100 per page, max 100 books
+   - /bestsellers?page=1
+3. New release books
+   - see all >> will be redirected to new release page, with pagination, 10-100 per page, max 100 books
+   - /new-releases?page=1
+4. Genre list, A-Z
+   - /genre?=fiction
+   - /genre?=non-fiction
+   - /genre?=biography
+
+GenrePage
+1. /genre?=fiction
+   - bestsellers books (fiction) [Slider] 10 books
+        - see all >> will be redirected to fiction bestsellers page, with pagination, 10-100 per page, max 100
+        - /fiction/bestsellers?page=1
+   - new release books (fiction) [Slider] 10 books
+        - see all >> will be redirected to fiction new release page, with pagination, 10-100 per page, max 100
+        - /fiction/newrelease?page=1
+   - 1-10 of over 70.000.000 results for "fiction"
+        - see all >> will be redirected to fiction new release page, with pagination, 10-100 per page
+        - /fiction/all?page=1
