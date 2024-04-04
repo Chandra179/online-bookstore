@@ -1,6 +1,6 @@
 package com.ecommerce.onlinebookstore.service;
 
-import com.ecommerce.onlinebookstore.repository.UserRepository;
+import com.ecommerce.onlinebookstore.repository.jpa.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

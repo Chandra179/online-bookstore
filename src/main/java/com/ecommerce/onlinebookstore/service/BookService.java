@@ -1,29 +1,32 @@
 package com.ecommerce.onlinebookstore.service;
 
 import com.ecommerce.onlinebookstore.entity.Book;
-import com.ecommerce.onlinebookstore.repository.BookRepository;
+import com.ecommerce.onlinebookstore.repository.elasticsearch.BookElasticsearchRepository;
+import com.ecommerce.onlinebookstore.repository.jpa.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final BookElasticsearchRepository bookElasticsearchRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, BookElasticsearchRepository bookElasticsearchRepository) {
         this.bookRepository = bookRepository;
+        this.bookElasticsearchRepository = bookElasticsearchRepository;
     }
 
     public Page<Book> getAllBooks(Pageable pageable) {
         return bookRepository.findAll(pageable);
     }
 
-    public Optional<Book> getBookById(Long id) {
+    public Optional<Book> getBookById(UUID id) {
         return bookRepository.findById(id);
     }
 
@@ -35,11 +38,11 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public void deleteBook(Long id) {
+    public void deleteBook(UUID id) {
         bookRepository.deleteById(id);
     }
 
-    public List<Book> searchBooks(String keyword) {
-        return bookRepository.findByTitleContainingOrAuthors_NameContainingOrGenres_NameContaining(keyword, keyword, keyword);
+    public Page<Book> searchBooks(String keyword, Pageable pageable) {
+        return bookElasticsearchRepository.search(keyword, pageable);
     }
 }

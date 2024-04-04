@@ -2,7 +2,7 @@ package com.ecommerce.onlinebookstore.service;
 
 import com.ecommerce.onlinebookstore.entity.Book;
 import com.ecommerce.onlinebookstore.entity.ShoppingCart;
-import com.ecommerce.onlinebookstore.repository.ShoppingCartRepository;
+import com.ecommerce.onlinebookstore.repository.jpa.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;

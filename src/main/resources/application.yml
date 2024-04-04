@@ -16,3 +16,7 @@ spring:
           github:
             clientId: ${GITHUB_CLIENT_ID}
             clientSecret: ${GITHUB_CLIENT_SECRET}
+  data:
+    elasticsearch:
+      cluster-name: my_cluster
+      cluster-nodes: localhost:9200
