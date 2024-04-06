@@ -1,0 +1,58 @@
+curl -X GET "localhost:9200/bookdetails/_search" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match" : {
+      "bookTitle": "Book"
+    }
+  }
+}'
+
+curl -X GET "localhost:9200/bookdetails/_search" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "nested": {
+      "path": "authors",
+      "query": {
+        "match": {
+          "authors.name": "your author name"
+        }
+      }
+    }
+  }
+}'
+
+curl -X GET "localhost:9200/bookdetails/_search" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match" : {
+            "query" : "your_search_term",
+            "fields" : ["bookTitle"]
+          }
+        },
+        {
+          "nested": {
+            "path": "genres",
+            "query": {
+              "match": {
+                "genres.name": "your_search_term"
+              }
+            }
+          }
+        },
+        {
+          "nested": {
+            "path": "authors",
+            "query": {
+              "match": {
+                "authors.name": "your_search_term"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}'
