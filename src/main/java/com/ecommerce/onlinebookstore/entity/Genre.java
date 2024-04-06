@@ -1,10 +1,12 @@
 package com.ecommerce.onlinebookstore.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "genre")
 public class Genre {
     @Id

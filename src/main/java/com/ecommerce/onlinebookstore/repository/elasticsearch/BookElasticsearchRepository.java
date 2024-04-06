@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface BookElasticsearchRepository extends ElasticsearchRepository<Book, UUID> {
 
-    @Query("{\"multi_match\": {\"query\": \"?0\", \"fields\": [\"title\", \"authors.name\", \"genres.name\"]}}")
+    @Query("{\"multi_match\": {\"query\": \"?0\", \"fields\": [\"title^3\", \"authors.name^2\", \"genres.name\"], \"type\": \"best_fields\"}}")
     Page<Book> search(String keyword, Pageable pageable);
 }

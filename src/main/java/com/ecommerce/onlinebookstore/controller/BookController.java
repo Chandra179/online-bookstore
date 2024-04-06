@@ -1,7 +1,6 @@
 package com.ecommerce.onlinebookstore.controller;
 
 import com.ecommerce.onlinebookstore.dto.BookDto;
-import com.ecommerce.onlinebookstore.entity.Author;
 import com.ecommerce.onlinebookstore.entity.Book;
 import com.ecommerce.onlinebookstore.repository.jpa.AuthorRepository;
 import com.ecommerce.onlinebookstore.service.BookService;
@@ -28,19 +27,7 @@ public class BookController {
 
     @PostMapping
     public Book addBook(@RequestBody BookDto bookDTO) {
-        Author author = authorRepository.findByName(bookDTO.getAuthorName());
-        if (author == null) {
-            author = new Author();
-            author.setName(bookDTO.getAuthorName());
-            author = authorRepository.save(author);
-        }
-
-        // Create the book
-        Book book = new Book();
-        book.setId(UUID.randomUUID());
-        book.setTitle(bookDTO.getTitle());
-        book.getAuthors().add(author);
-        return bookService.addBook(book);
+        return bookService.addBook(bookDTO);
     }
 
     @GetMapping
