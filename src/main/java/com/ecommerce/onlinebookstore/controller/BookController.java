@@ -1,8 +1,7 @@
 package com.ecommerce.onlinebookstore.controller;
 
 import com.ecommerce.onlinebookstore.dto.BookDto;
-import com.ecommerce.onlinebookstore.entity.elasticsearch.BookDetails;
-import com.ecommerce.onlinebookstore.service.BookDetailsElasticsearchService;
+import com.ecommerce.onlinebookstore.entity.elasticsearch.BookEcs;
 import com.ecommerce.onlinebookstore.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BookController {
 
   private final BookService bookService;
-  private final BookDetailsElasticsearchService bookDetailsElasticsearchService;
 
   @Autowired
-  public BookController(BookService bookService, BookDetailsElasticsearchService bookDetailsElasticsearchService) {
+  public BookController(BookService bookService) {
     this.bookService = bookService;
-    this.bookDetailsElasticsearchService = bookDetailsElasticsearchService;
   }
 
   @PostMapping
@@ -28,7 +25,7 @@ public class BookController {
   }
 
   @GetMapping
-  public Page<BookDetails> searchBooks(@RequestParam String s) {
-    return bookDetailsElasticsearchService.search(s, Pageable.ofSize(10));
+  public Page<BookEcs> searchBooks(@RequestParam String s) {
+    return bookService.search(s, Pageable.ofSize(10));
   }
 }

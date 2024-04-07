@@ -19,4 +19,7 @@ public class BookDto implements Serializable {
 
   @JsonProperty("genre")
   private String genreName;
+
+  @JsonProperty("price")
+  private double price;
 }

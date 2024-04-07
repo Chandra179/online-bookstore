@@ -13,8 +13,8 @@ import java.util.UUID;
 
 @Data
 @Builder
-@Document(indexName = "bookdetails")
-public class BookDetails {
+@Document(indexName = "book")
+public class BookEcs {
 
   @Id
   @Field(type = FieldType.Text)
@@ -47,7 +47,7 @@ public class BookDetails {
 
   @Builder
   @Getter
-  public static class Genre { // New static nested class
+  public static class Genre {
     @Field(type = FieldType.Text)
     private String name;
   }
