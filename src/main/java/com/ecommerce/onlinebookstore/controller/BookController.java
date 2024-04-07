@@ -1,6 +1,6 @@
 package com.ecommerce.onlinebookstore.controller;
 
-import com.ecommerce.onlinebookstore.dto.BookDto;
+import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
 import com.ecommerce.onlinebookstore.entity.elasticsearch.BookEcs;
 import com.ecommerce.onlinebookstore.service.BookService;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public class BookController {
   }
 
   @PostMapping
-  public void addBook(@RequestBody BookDto bookDTO) {
+  public void addBook(@RequestBody BookCreationRequest bookDTO) {
     bookService.addBook(bookDTO);
   }
 

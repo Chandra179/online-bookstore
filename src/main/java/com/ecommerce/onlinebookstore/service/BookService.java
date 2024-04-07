@@ -1,6 +1,6 @@
 package com.ecommerce.onlinebookstore.service;
 
-import com.ecommerce.onlinebookstore.dto.BookDto;
+import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
 import com.ecommerce.onlinebookstore.entity.Author;
 import com.ecommerce.onlinebookstore.entity.Book;
 import com.ecommerce.onlinebookstore.entity.Genre;
@@ -20,7 +20,6 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -38,11 +37,7 @@ public class BookService {
     this.elasticsearchOperations = elasticsearchOperations;
   }
 
-  public Optional<Book> getBookById(UUID id) {
-    return bookRepository.findById(id);
-  }
-
-  public void addBook(BookDto bookDto) {
+  public void addBook(BookCreationRequest bookDto) {
     Author author = authorRepository.findByName(bookDto.getAuthorName());
     if (author == null) {
       author = new Author();
@@ -63,6 +58,7 @@ public class BookService {
     book.setTitle(bookDto.getTitle());
     book.setAuthors(List.of(author));
     book.setGenres(List.of(genre));
+    book.setPrice(bookDto.getPrice());
     bookRepository.save(book);
   }
 

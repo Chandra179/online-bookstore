@@ -4,9 +4,9 @@ Guest
 3. then when user login the cart item wil be added to database
 4. if success: remove the session or localstorage
 
-HomePage
-1. Search bar -> by title, author
-   - /search?q=Steve%Jobs
+HomePage (ALL BELOW can use /search?s=KEYWORD) maybe some additional parameter for each criteria like bestseller only 100 books
+1. Search bar -> by title, author, genre, bestseller, new release
+   - /search?s=Steve%Jobs
    - with pagination, 10-100 per page
 2. Bestsellers books (all genre) [Slider] 10 books
    - see all >> will be redirected to bestsellers page, with pagination, 10-100 per page, max 100 books
@@ -30,3 +30,21 @@ GenrePage
    - 1-10 of over 70.000.000 results for "fiction"
         - see all >> will be redirected to fiction new release page, with pagination, 10-100 per page
         - /fiction/all?page=1
+
+WalkThrough
+0. Login
+1. user go to homepage
+2. there is [search bar, list of genre (?s), bestsellers (?s), new release (?s)]
+3. search for (search_term, genre) for like BEST_SELLER for FICTON (which have 2 keyword)
+4. on book details we have (title, genre, authors :: which is from query search result)
+   - then we will fetch inventory for this book
+   - maybe ratings for later
+   - also comment
+5. add to cart, there are already debouncing method (will be change if there is another suitable method)
+6. submit order (if using debouncing we will need to wait unfinished scheduler that add book cart to DB)
+   - how to verify inventoy items with user order items if the application is in high traffic
+   - could be seperate service for handling order :: using message broker for send the order
+7. payment (using stripe)
+8. TBD : order tracking
+9. TBD : user feedback/rating
+10. TBD : recommendations

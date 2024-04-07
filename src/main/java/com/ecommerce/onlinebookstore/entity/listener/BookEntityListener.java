@@ -7,14 +7,12 @@ import com.ecommerce.onlinebookstore.entity.Genre;
 import com.ecommerce.onlinebookstore.repository.elasticsearch.BookEcsRepository;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-@Slf4j
 public class BookEntityListener {
 
   private final BookEcsRepository repository;
