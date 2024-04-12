@@ -1,13 +1,13 @@
 package com.ecommerce.onlinebookstore.service;
 
-import com.ecommerce.onlinebookstore.repository.jpa.UserRepository;
+import com.ecommerce.onlinebookstore.repository.jpa.UserAccountRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    private final UserAccountRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserAccountRepository userRepository) {
         this.userRepository = userRepository;
     }
 

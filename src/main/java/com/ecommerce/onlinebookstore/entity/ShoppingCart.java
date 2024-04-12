@@ -1,6 +1,7 @@
 package com.ecommerce.onlinebookstore.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@Builder
 @Table(name = "shopping_cart")
 public class ShoppingCart {
     @Id
@@ -15,7 +17,7 @@ public class ShoppingCart {
     private UUID id;
 
     @OneToOne
-    private UserAccount userAccount;
+    private UserAccount customerAccount;
 
     @ManyToMany
     @JoinTable(
