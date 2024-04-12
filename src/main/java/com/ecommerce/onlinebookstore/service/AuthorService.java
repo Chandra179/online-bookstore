@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuthorService {
@@ -21,7 +22,7 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
-    public Optional<Author> getAuthorById(Long id) {
+    public Optional<Author> getAuthorById(UUID id) {
         return authorRepository.findById(id);
     }
 
@@ -33,7 +34,7 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
-    public void deleteAuthor(Long id) {
+    public void deleteAuthor(UUID id) {
         authorRepository.deleteById(id);
     }
 }

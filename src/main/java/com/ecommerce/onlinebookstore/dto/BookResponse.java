@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
-public class BookCreationRequest implements Serializable {
+public class BookResponse implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -25,4 +25,7 @@ public class BookCreationRequest implements Serializable {
 
   @JsonProperty("book_qty")
   private int bookQty;
+
+  @JsonProperty("description")
+  private String description;
 }

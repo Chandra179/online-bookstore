@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ScheduledFuture;
 
 @Service
@@ -27,7 +28,7 @@ public class ShoppingCartService {
         return shoppingCartRepository.findAll();
     }
 
-    public Optional<ShoppingCart> getShoppingCartById(Long id) {
+    public Optional<ShoppingCart> getShoppingCartById(UUID id) {
         return shoppingCartRepository.findById(id);
     }
 

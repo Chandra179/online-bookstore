@@ -35,7 +35,7 @@ public class BookEntityListener {
     for (Author author : book.getAuthors()) {
       bookEcs.getAuthors().add(
         BookEcs.Authors.builder()
-          .id(author.getId())
+          .id(author.getId().toString())
           .name(author.getName())
           .build()
       );

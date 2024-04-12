@@ -3,5 +3,7 @@ package com.ecommerce.onlinebookstore.repository.jpa;
 import com.ecommerce.onlinebookstore.entity.CustomerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends JpaRepository<CustomerOrder, Long> {
+import java.util.UUID;
+
+public interface OrderRepository extends JpaRepository<CustomerOrder, UUID> {
 }

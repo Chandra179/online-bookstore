@@ -34,8 +34,8 @@ GenrePage
 WalkThrough
 0. Login
 1. user go to homepage
-2. there is [search bar, list of genre (?s), bestsellers (?s), new release (?s)]
-3. search for (search_term, genre) for like BEST_SELLER for FICTON (which have 2 keyword)
+2. there is [search bar :: list of genre (?s), bestsellers (?s), new release (?s)]
+3. search for (search_term, genre) for like BEST_SELLER for FICTION (which have 2 keyword)
 4. on book details we have (title, genre, authors :: which is from query search result)
    - then we will fetch inventory for this book
    - maybe ratings for later

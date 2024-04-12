@@ -1,21 +1,22 @@
 package com.ecommerce.onlinebookstore.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
-@Table(name = "author")
-public class Author {
+@Builder
+@Table(name = "inventory")
+public class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
+    @OneToOne
+    private Book book;
 
-    @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    private int quantity;
 }

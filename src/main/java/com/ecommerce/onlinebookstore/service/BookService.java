@@ -1,13 +1,17 @@
 package com.ecommerce.onlinebookstore.service;
 
 import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
+import com.ecommerce.onlinebookstore.dto.BookResponse;
 import com.ecommerce.onlinebookstore.entity.Author;
 import com.ecommerce.onlinebookstore.entity.Book;
 import com.ecommerce.onlinebookstore.entity.Genre;
+import com.ecommerce.onlinebookstore.entity.Inventory;
 import com.ecommerce.onlinebookstore.entity.elasticsearch.BookEcs;
 import com.ecommerce.onlinebookstore.repository.jpa.AuthorRepository;
 import com.ecommerce.onlinebookstore.repository.jpa.BookRepository;
 import com.ecommerce.onlinebookstore.repository.jpa.GenreRepository;
+import com.ecommerce.onlinebookstore.repository.jpa.InventoryRepository;
+import com.ecommerce.onlinebookstore.repository.projection.BookView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,16 +32,19 @@ public class BookService {
   private final AuthorRepository authorRepository;
   private final GenreRepository genreRepository;
   private final ElasticsearchOperations elasticsearchOperations;
+  private final InventoryRepository inventoryRepository;
 
   @Autowired
-  public BookService(BookRepository bookRepository, AuthorRepository authorRepository, GenreRepository genreRepository, ElasticsearchOperations elasticsearchOperations) {
+  public BookService(BookRepository bookRepository, AuthorRepository authorRepository, GenreRepository genreRepository,
+                     ElasticsearchOperations elasticsearchOperations, InventoryRepository inventoryRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
     this.genreRepository = genreRepository;
     this.elasticsearchOperations = elasticsearchOperations;
+    this.inventoryRepository = inventoryRepository;
   }
 
-  public void addBook(BookCreationRequest bookDto) {
+  public void createBook(BookCreationRequest bookDto) {
     Author author = authorRepository.findByName(bookDto.getAuthorName());
     if (author == null) {
       author = new Author();
@@ -59,7 +66,13 @@ public class BookService {
     book.setAuthors(List.of(author));
     book.setGenres(List.of(genre));
     book.setPrice(bookDto.getPrice());
-    bookRepository.save(book);
+    Book savedBook = bookRepository.save(book);
+
+    inventoryRepository.save(Inventory.builder()
+      .book(savedBook)
+      .quantity(bookDto.getBookQty())
+      .build()
+    );
   }
 
   public Page<BookEcs> search(String text, Pageable pageable) {
@@ -101,5 +114,39 @@ public class BookService {
 
     SearchHits<BookEcs> searchHits = elasticsearchOperations.search(query, BookEcs.class);
     return SearchHitSupport.searchPageFor(searchHits, pageable).map(SearchHit::getContent);
+  }
+
+  public Page<BookEcs> search(String title, String genre, Pageable pageable) {
+    Query query = NativeQuery.builder()
+      .withQuery(q -> q
+        .bool(b -> b
+          .must(s -> s
+            .match(m -> m
+              .field("bookTitle")
+              .query(title)
+            )
+          )
+          .must(s -> s
+            .nested(n -> n
+              .path("genres")
+              .query(q2 -> q2
+                .match(m -> m
+                  .field("genres.name")
+                  .query(genre)
+                )
+              )
+            )
+          )
+        )
+      )
+      .withPageable(pageable)
+      .build();
+
+    SearchHits<BookEcs> searchHits = elasticsearchOperations.search(query, BookEcs.class);
+    return SearchHitSupport.searchPageFor(searchHits, pageable).map(SearchHit::getContent);
+  }
+
+  public BookView getBook(UUID id) {
+    return bookRepository.findBookById(id);
   }
 }

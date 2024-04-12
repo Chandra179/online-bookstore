@@ -39,7 +39,7 @@ public class BookEcs {
   @Getter
   public static class Authors {
     @Field(type = FieldType.Text)
-    private Long id;
+    private String id;
 
     @Field(type = FieldType.Text)
     private String name;
