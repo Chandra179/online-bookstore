@@ -16,7 +16,7 @@ public class Payment {
     private UserAccount userAccount;
 
     @OneToOne
-    private CustomerOrder customerOrder;
+    private OrderItem customerOrder;
 
     private Double amount;
     private Date paymentDate;

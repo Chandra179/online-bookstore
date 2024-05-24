@@ -33,14 +33,14 @@ GenrePage
 
 WalkThrough
 0. Login
-1. user go to homepage
-2. there is [search bar :: list of genre (?s), bestsellers (?s), new release (?s)]
-3. search for (search_term, genre) for like BEST_SELLER for FICTION (which have 2 keyword)
+1. [v] user go to homepage
+2. [v] there is [search bar :: list of genre (?s), bestsellers (?s), new release (?s)]
+3. [v] search for (search_term, genre) for like BEST_SELLER for FICTION (which have 2 keyword)
 4. on book details we have (title, genre, authors :: which is from query search result)
    - then we will fetch inventory for this book
    - maybe ratings for later
    - also comment
-5. add to cart, there are already debouncing method (will be change if there is another suitable method)
+5. [v] add to cart, there are already debouncing method (will be change if there is another suitable method)
 6. submit order (if using debouncing we will need to wait unfinished scheduler that add book cart to DB)
    - how to verify inventoy items with user order items if the application is in high traffic
    - could be seperate service for handling order :: using message broker for send the order

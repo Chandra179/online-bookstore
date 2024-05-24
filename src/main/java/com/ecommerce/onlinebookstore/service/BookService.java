@@ -1,7 +1,6 @@
 package com.ecommerce.onlinebookstore.service;
 
-import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
-import com.ecommerce.onlinebookstore.dto.BookResponse;
+import com.ecommerce.onlinebookstore.dto.BookItem;
 import com.ecommerce.onlinebookstore.entity.Author;
 import com.ecommerce.onlinebookstore.entity.Book;
 import com.ecommerce.onlinebookstore.entity.Genre;
@@ -44,7 +43,7 @@ public class BookService {
     this.inventoryRepository = inventoryRepository;
   }
 
-  public void createBook(BookCreationRequest bookDto) {
+  public void createBook(BookItem bookDto) {
     Author author = authorRepository.findByName(bookDto.getAuthorName());
     if (author == null) {
       author = new Author();
@@ -75,6 +74,16 @@ public class BookService {
     );
   }
 
+  /**
+   * This method is used to search for books in the Elasticsearch index.
+   * It constructs a query that matches the input text against the book title, author names, and genre names.
+   * The search is performed in a "should" clause, meaning that the results can match any of the fields.
+   * The results are then paginated according to the Pageable object passed as an argument.
+   *
+   * @param text The text to search for in the book title, author names, and genre names.
+   * @param pageable The pagination information.
+   * @return A Page of BookEcs objects that match the search criteria.
+   */
   public Page<BookEcs> search(String text, Pageable pageable) {
     Query query = NativeQuery.builder()
       .withQuery(q -> q
@@ -116,6 +125,17 @@ public class BookService {
     return SearchHitSupport.searchPageFor(searchHits, pageable).map(SearchHit::getContent);
   }
 
+  /**
+   * This method is used to search for books in the Elasticsearch index based on the book title and genre.
+   * It constructs a query that matches the input title and genre exactly.
+   * The search is performed in a "must" clause, meaning that the results must match both the title and genre fields.
+   * The results are then paginated according to the Pageable object passed as an argument.
+   *
+   * @param title The title of the book to search for.
+   * @param genre The genre of the book to search for.
+   * @param pageable The pagination information.
+   * @return A Page of BookEcs objects that match the search criteria.
+   */
   public Page<BookEcs> search(String title, String genre, Pageable pageable) {
     Query query = NativeQuery.builder()
       .withQuery(q -> q

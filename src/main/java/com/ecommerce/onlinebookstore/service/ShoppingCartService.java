@@ -30,7 +30,7 @@ public class ShoppingCartService {
     this.userAccountRepository = userAccountRepository;
   }
 
-  public void addBookToCart(CartItem cartItem) {
+  public void addItemToCart(CartItem cartItem) {
     debounceSaveCart(cartItem,true);
   }
 

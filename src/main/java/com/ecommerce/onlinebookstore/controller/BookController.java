@@ -1,6 +1,6 @@
 package com.ecommerce.onlinebookstore.controller;
 
-import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
+import com.ecommerce.onlinebookstore.dto.BookItem;
 import com.ecommerce.onlinebookstore.entity.elasticsearch.BookEcs;
 import com.ecommerce.onlinebookstore.repository.projection.BookView;
 import com.ecommerce.onlinebookstore.service.BookService;
@@ -23,7 +23,7 @@ public class BookController {
   }
 
   @PostMapping
-  public void createBook(@RequestBody BookCreationRequest bookDTO) {
+  public void createBook(@RequestBody BookItem bookDTO) {
     bookService.createBook(bookDTO);
   }
 

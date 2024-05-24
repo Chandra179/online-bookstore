@@ -16,7 +16,7 @@ public class OrderHistory {
     private UserAccount userAccount;
 
     @OneToOne
-    private CustomerOrder customerOrder;
+    private OrderItem customerOrder;
 
     private Date orderDate;
 }

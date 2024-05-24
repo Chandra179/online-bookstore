@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customer_order")
-public class CustomerOrder {
+@Table(name = "order_item")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;

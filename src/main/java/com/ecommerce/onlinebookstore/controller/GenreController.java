@@ -1,6 +1,5 @@
 package com.ecommerce.onlinebookstore.controller;
 
-import com.ecommerce.onlinebookstore.dto.BookCreationRequest;
 import com.ecommerce.onlinebookstore.entity.Genre;
 import com.ecommerce.onlinebookstore.repository.jpa.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
